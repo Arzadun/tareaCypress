@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+import HomePage  from "../support/pages/HomePage";
+import LoginPage from "../support/pages/LoginPage";
+import BasePage from "../support/pages/BasePage";
+
 describe('Login functionality', () => {
   
 
@@ -14,7 +18,7 @@ describe('Login functionality', () => {
 
     cy.visit("https://automationexercise.com/");
 
-    cy.get('.shop-menu > .nav > :nth-child(4) > a').click();
+    HomePage.navigateToLoginPage();
 
     cy.get('.login-form > h2').should("be.visible");
 
@@ -24,21 +28,16 @@ describe('Login functionality', () => {
 
     cy.visit("https://automationexercise.com/login");
 
-    cy.get('.login-form > form > [type="email"]').type("sebatest@mailinator.com");
+    LoginPage.enterCredentials("sebatest@mailinator.com", "12345")
 
-    cy.get('.login-form > form > [type="email"]').should("have.value" , "sebatest@mailinator.com")
+    cy.get(LoginPage.emailInput).should("have.value" , "sebatest@mailinator.com")
 
-    cy.get('[type="password"]').type("12345");
+    cy.get(LoginPage.passwordInput).should("have.value" , "12345")
 
-    cy.get('[type="password"]').should("have.value" , "12345")
-
-    cy.get('.login-form > form > .btn').click();
+    LoginPage.submitLogin();
 
     cy.get('.shop-menu > .nav > :nth-child(4) > a').should("have.text" , " Logout");
   })
-
-  
-  
 
 })
 
@@ -55,7 +54,7 @@ describe('Login functionality negative scenario', () => {
 
     cy.visit("https://automationexercise.com/");
 
-    cy.get('.shop-menu > .nav > :nth-child(4) > a').click();
+    HomePage.navigateToLoginPage();
 
     cy.get('.login-form > h2').should("be.visible");
 
@@ -65,19 +64,15 @@ describe('Login functionality negative scenario', () => {
 
     cy.visit("https://automationexercise.com/login");
 
-    cy.get('.login-form > form > [type="email"]').type("sebatest@mailinator.com");
+    LoginPage.enterCredentials("sebatest@mailinator.com", "1234")
 
-    cy.get('.login-form > form > [type="email"]').should("have.value" , "sebatest@mailinator.com")
+    cy.get(LoginPage.emailInput).should("have.value" , "sebatest@mailinator.com")
 
-    cy.get('[type="password"]').type("1234");
+    cy.get(LoginPage.passwordInput).should("have.value" , "1234")
 
-    cy.get('[type="password"]').should("have.value" , "1234");
-
-    cy.get('.login-form > form > .btn').click();
+    LoginPage.submitLogin();
 
     cy.get('.login-form > form > p').should("have.text" , "Your email or password is incorrect!");
 
   })
-
-
 })
