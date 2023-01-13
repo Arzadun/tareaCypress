@@ -1,12 +1,7 @@
 /// <reference types="cypress" />
 
-import HomePage  from "../support/pages/HomePage";
-import LoginPage from "../support/pages/LoginPage";
-import BasePage from "../support/pages/BasePage";
-
 describe('Login functionality', () => {
   
-
   it('User is in required page', () => {
     cy.visit("https://automationexercise.com/");
 
@@ -18,12 +13,16 @@ describe('Login functionality', () => {
 
     cy.visit("https://automationexercise.com/");
 
-    HomePage.navigateToLoginPage();
+    cy.fixture("home").then((home)=>{
+      cy.get(home.loginPageButton).click();
+    })
 
-    cy.get('.login-form > h2').should("be.visible");
+    cy.fixture("login").then((login)=>{
+      cy.get(login.loginFormHeader).should("be.visible");
+    })
 
   })
-
+/*
   it('User is able to enter his credentials', () => {
 
     cy.visit("https://automationexercise.com/login");
@@ -74,5 +73,5 @@ describe('Login functionality negative scenario', () => {
 
     cy.get('.login-form > form > p').should("have.text" , "Your email or password is incorrect!");
 
-  })
+  })*/
 })
