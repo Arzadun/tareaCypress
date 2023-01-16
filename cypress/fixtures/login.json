@@ -1,3 +1,7 @@
 {
-    "loginFormHeader": ".login-form > h2"
+    "loginFormHeader": ".login-form > h2",
+    "emailInput" : ".login-form > form > [type='email']",
+    "passwordInput" :"[type='password']",
+     "loginButton" : ".login-form > form > .btn",
+     "incorrectCredentialsText" : ".login-form > form > p"
 }
